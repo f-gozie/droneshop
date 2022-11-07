@@ -28,6 +28,9 @@ public class DroneConverter {
     }
 
     public DroneDto convertEntityToDto(DroneEntity entity) {
+        if (entity == null) {
+            return null;
+        }
         return DroneDto.builder()
                 .id(entity.getId())
                 .serialNumber(entity.getSerialNumber())

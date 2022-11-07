@@ -120,6 +120,9 @@ public class DroneServiceImpl implements DroneService {
 
     public void validateMedications(Set<Long> medications, Integer weightLimit) throws Exception {
         Integer totalLimit = 0;
+        if (medications == null) {
+            return;
+        }
         for (Long medicationId : medications) {
             Optional<MedicationEntity> medicationEntity = medicationRepository.findById(medicationId);
             if (medicationEntity.isEmpty()) {

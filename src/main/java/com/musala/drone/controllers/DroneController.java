@@ -29,7 +29,7 @@ public class DroneController {
     }
 
     @GetMapping("/drones")
-    public ResponseEntity<List<DroneDto>> getAllMedications() throws Exception {
+    public ResponseEntity<List<DroneDto>> getAllDrones() throws Exception {
         List<DroneDto> droneDtos = droneService.getAllDrones();
         return new ResponseEntity<>(droneDtos, HttpStatus.OK);
     }
