@@ -43,9 +43,9 @@ public class DroneServiceImpl implements DroneService {
         if (droneRepository.findById(droneEntity.getId()).isPresent()) {
             throw new InvalidValueException("Drone with this id already exists");
         }
-//        if (droneRepository.findBySerialNumber(serialNumber).isPresent()) {
-//            throw new InvalidValueException("Drone with this serial number already exists");
-//        }
+        if (droneRepository.findBySerialNumber(serialNumber).isPresent()) {
+            throw new InvalidValueException("Drone with this serial number already exists");
+        }
         if (droneEntity.getWeightLimit() < 0) {
             throw new InvalidValueException("Drone weight limit cannot be negative");
         }
