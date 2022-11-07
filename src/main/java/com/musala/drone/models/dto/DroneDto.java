@@ -27,16 +27,5 @@ public class DroneDto implements Serializable {
     private Integer batteryCapacity;
     private String state;
     private Set<Long> medications;
-
-//    public List<MedicationDto> getMedications() {
-//        // Return list of MedicationDto objects gotten by their IDs
-//        return medications.stream()
-//                .map(medicationId -> {
-//                    SimpleJpaRepository medicationRepository = new SimpleJpaRepository(MedicationEntity.class, null);
-//                    MedicationEntity medicationEntity = (MedicationEntity) medicationRepository.findById(medicationId).orElse(null);
-//                    MedicationConverter medicationConverter = new MedicationConverter();
-//                    return medicationConverter.convertEntityToDto(medicationEntity);
-//                })
-//                .collect(Collectors.toList());
-//    }
+    
 }
