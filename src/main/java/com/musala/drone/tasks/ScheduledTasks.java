@@ -21,12 +21,7 @@ public class ScheduledTasks {
     public ScheduledTasks(BatteryAuditService batteryAuditService) {
         this.batteryAuditService = batteryAuditService;
     }
-
-    @Scheduled(fixedRate = 5000)
-    public void reportCurrentTime() {
-        log.info("The time is now {}", dateFormat.format(new Date()));
-    }
-
+    
     @Scheduled(cron = "0 */1 * * * *")
     public void checkBatteryLevels() {
         log.info("Checking battery levels");

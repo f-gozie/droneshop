@@ -19,7 +19,7 @@ public class MedicationController {
     }
 
     @PostMapping("/medications")
-    public ResponseEntity<MedicationDto> createDrone(@RequestBody MedicationRequest request) throws Exception {
+    public ResponseEntity<MedicationDto> createMedication(@RequestBody MedicationRequest request) throws Exception {
         MedicationDto medicationDto = medicationService.createMedication(request);
         return new ResponseEntity<>(medicationDto, HttpStatus.CREATED);
     }
