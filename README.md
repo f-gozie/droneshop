@@ -68,7 +68,7 @@ While implementing your solution **please take care of the following requirement
 
 #### Get all drones
 
-```http
+```
   GET /drones
 ```
 
@@ -77,7 +77,7 @@ While implementing your solution **please take care of the following requirement
 
 #### Create a Drone
 
-```http
+```
   POST /drones
 ```
 
@@ -92,7 +92,7 @@ While implementing your solution **please take care of the following requirement
 | `medications`      | `array` | **Optional**. An array of medication IDs. An exception thrown if a medication is not found |
 
 #### Load a drone with medications
-```http
+```
   POST /drones/load
 ```
 
@@ -102,7 +102,7 @@ While implementing your solution **please take care of the following requirement
 | `medications` | `array` | **Required** An array of medications to be loaded. Total load weight of medications cannot be more than drone capacity |
 
 #### Get all medications for a drone
-```http
+```
   GET /drones/{id}/medications
 ```
 
@@ -112,7 +112,7 @@ While implementing your solution **please take care of the following requirement
 
 #### Get drones available for loading
 
-```http
+```
   GET /drones/available-for-loading
 ```
 
@@ -121,7 +121,7 @@ While implementing your solution **please take care of the following requirement
 
 #### Get battery percentage of a drone
 
-```http
+```
   GET /drones/{id}/battery
 ```
 
@@ -131,7 +131,7 @@ While implementing your solution **please take care of the following requirement
 
 #### Create Medication
 
-```http
+```
   POST /medications
 ```
 
@@ -144,7 +144,7 @@ While implementing your solution **please take care of the following requirement
 
 #### Get all medications
 
-```http
+```
   GET /medications
 ```
 
@@ -153,7 +153,7 @@ While implementing your solution **please take care of the following requirement
 
 #### Get a single medication 
 
-```http
+```
   GET /medications/{id}
 ```
 
