@@ -1,6 +1,7 @@
 package com.musala.drone.services.impl;
 
 import com.musala.drone.exceptions.BatteryTooLowException;
+import com.musala.drone.exceptions.InvalidChoiceException;
 import com.musala.drone.exceptions.InvalidValueException;
 import com.musala.drone.models.converters.DroneConverter;
 import com.musala.drone.models.converters.MedicationConverter;
@@ -13,12 +14,14 @@ import com.musala.drone.models.request.LoadRequest;
 import com.musala.drone.repository.DroneRepository;
 import com.musala.drone.repository.MedicationRepository;
 import com.musala.drone.services.DroneService;
+import com.musala.drone.utils.enums.DroneModel;
 import com.musala.drone.utils.enums.DroneState;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 
 @Service
@@ -38,6 +41,8 @@ public class DroneServiceImpl implements DroneService {
 
     @Override
     public DroneDto createDrone(DroneRequest request) throws Exception {
+        validateDroneModel(request.getModel());
+        validateDroneState(request.getState());
         DroneEntity droneEntity = droneConverter.convertRequestToEntity(request);
         String serialNumber = droneEntity.getSerialNumber();
         if (droneRepository.findById(droneEntity.getId()).isPresent()) {
@@ -52,8 +57,8 @@ public class DroneServiceImpl implements DroneService {
         if (droneEntity.getWeightLimit() > 500) {
             throw new InvalidValueException("Drone weight limit cannot be more than 500");
         }
-        verifyBatteryAndState(droneEntity.getBatteryCapacity(), droneEntity.getState());
         Set<Long> medications = droneEntity.getMedications();
+        verifyBatteryAndState(droneEntity.getBatteryCapacity(), droneEntity.getState());
         validateMedications(medications, droneEntity.getWeightLimit());
 
         DroneEntity savedDroneEntity = droneRepository.save(droneEntity);
@@ -158,6 +163,26 @@ public class DroneServiceImpl implements DroneService {
     public void verifyBatteryAndState(Integer battery, DroneState state) {
         if ((battery < 25) && (state == DroneState.valueOf("LOADING"))) {
             throw new BatteryTooLowException("Battery capacity cannot be less than 25% if drone is in loading state");
+        }
+    }
+
+    public void validateDroneModel(String givenModel) {
+        List<String> acceptedValues = Stream.of(DroneModel.values()).map(Enum::name).toList();
+        if (givenModel == null) {
+            throw new InvalidChoiceException("Drone model cannot be null");
+        }
+        if (!acceptedValues.contains(givenModel)) {
+            throw new InvalidChoiceException("Drone model must be one of " + acceptedValues);
+        }
+    }
+
+    public void validateDroneState(String givenState) {
+        List<String> acceptedValues = Stream.of(DroneState.values()).map(Enum::name).toList();
+        if (givenState == null) {
+            throw new InvalidChoiceException("Drone state cannot be null");
+        }
+        if (!acceptedValues.contains(givenState)) {
+            throw new InvalidChoiceException("Drone state must be one of " + acceptedValues);
         }
     }
 }

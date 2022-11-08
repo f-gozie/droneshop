@@ -21,4 +21,9 @@ public class DroneExceptionController {
     public ResponseEntity<Object> exception(BatteryTooLowException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(value = InvalidChoiceException.class)
+    public ResponseEntity<Object> exception(InvalidChoiceException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }
